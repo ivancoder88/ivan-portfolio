@@ -7,4 +7,4 @@ if [ ! -d "node_modules" ] && [ -d "src" ]; then
 fi
 
 # Start the Angular development server
-pnpm start --host 0.0.0.0 --port 4200 --disable-host-check
+pnpm start --host 0.0.0.0 --port 4200 --allowed-hosts true
