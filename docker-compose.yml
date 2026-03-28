@@ -1,0 +1,9 @@
+services:
+  ivan-portfolio:
+    build: 
+      context: .
+      dockerfile: Dockerfile.development
+    volumes:
+      - .:/app
+    ports:
+      - "4200:4200"

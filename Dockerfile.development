@@ -1,0 +1,17 @@
+FROM node:24.14.1
+
+WORKDIR /app
+
+ENV NG_CLI_ANALYTICS=false
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+RUN npm install -g pnpm
+RUN pnpm add --global @angular/cli
+
+EXPOSE 4200
+
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+CMD [ "sh", "start.sh" ]
