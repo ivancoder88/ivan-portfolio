@@ -1,4 +1,4 @@
-<button (click)="onHamburgerClick()" type="button" [aria-expanded]="iconToggle()" class="md:hidden relative inline-flex items-center justify-center rounded-md p-2 text-gray-800 border-2 border-transparent hover:border-gray-800 transition-[border] focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
+<button (click)="toggle()" type="button" [aria-expanded]="isActive()" class="md:hidden relative inline-flex items-center justify-center rounded-md p-2 text-gray-800 border-2 border-transparent hover:border-gray-800 transition-[border] focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
     <span class="absolute -inset-0.5"></span>
     <span class="sr-only">Open main menu</span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 in-aria-expanded:hidden">
