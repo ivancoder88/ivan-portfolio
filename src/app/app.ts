@@ -8,6 +8,4 @@ import { Header } from "./components/header/header";
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('ivan-portfolio');
-}
+export class App {}
