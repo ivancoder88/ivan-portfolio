@@ -1,10 +1,10 @@
-import { Component, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-hamburger',
   templateUrl: './hamburger.html',
   styleUrl: './hamburger.css',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hamburger {
   isActive = signal(false);

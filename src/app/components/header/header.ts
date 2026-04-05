@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { Hamburger } from '../hamburger/hamburger';
 
 interface NavigationLink {
@@ -11,6 +11,7 @@ interface NavigationLink {
   imports: [Hamburger],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
   protected readonly navigationLinks: NavigationLink[] = [
