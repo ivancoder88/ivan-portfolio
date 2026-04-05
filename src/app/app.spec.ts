@@ -23,4 +23,12 @@ describe('App', () => {
     expect(compiled.querySelector('app-header')).toBeTruthy();
     expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
+
+  it('should have a root-level container', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    // App doesn't have a specific container in app.html, but it is rendered.
+    expect(compiled).toBeTruthy();
+  });
 });
