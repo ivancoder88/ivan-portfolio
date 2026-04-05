@@ -10,12 +10,21 @@
             <a href="#contact" class="px-10 py-3 text-white bg-purple-600 rounded-3xl">Hire me!</a>
             <app-hamburger (active)="onHamburgerClick()" />
         </div>
-        <ul class="md:hidden basis-full py-5" [class.hidden]="!isHamburgerClicked()" id="mobile-menu">
-            @for (navigationLink of navigationLinks; track navigationLink.label) {
-                <li class="py-2 text-center focus:bg-purple-200">
-                    <a href="{{navigationLink.href}}" class="text-gray-800">{{navigationLink.label}}</a>
-                </li>
-            }
-        </ul>
+        <div class="grid transition-all duration-300 ease-in-out md:hidden basis-full"
+             [class.grid-rows-[0fr]]="!isHamburgerClicked()"
+             [class.grid-rows-[1fr]]="isHamburgerClicked()"
+             [class.opacity-0]="!isHamburgerClicked()"
+             [class.opacity-100]="isHamburgerClicked()"
+             [class.invisible]="!isHamburgerClicked()">
+            <div class="overflow-hidden">
+                <ul class="py-5" id="mobile-menu">
+                    @for (navigationLink of navigationLinks; track navigationLink.label) {
+                        <li class="py-2 text-center focus:bg-purple-200">
+                            <a href="{{navigationLink.href}}" class="text-gray-800">{{navigationLink.label}}</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
     </nav>
 </header>
