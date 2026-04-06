@@ -45,8 +45,8 @@ interface SocialLink {
           </div>
         </div>
         <div class="relative order-1 lg:order-2 flex justify-center reveal" #reveal>
-          <div class="relative w-72 h-72 md:w-96 md:h-96">
-            <div class="absolute inset-4 overflow-hidden rounded-2xl shadow-2xl transform rotate-6 hover:rotate-0 transition-transform duration-500 bg-slate-200 dark:bg-slate-800">
+          <div class="relative w-80 h-96 md:w-[28rem] md:h-[34rem]">
+            <div class="absolute inset-4 overflow-hidden rounded-3xl shadow-2xl transform rotate-6 hover:rotate-0 transition-transform duration-500 bg-slate-200 dark:bg-slate-800">
                <div class="w-full h-full flex items-center justify-center text-slate-400 dark:text-slate-600">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-24 h-24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
