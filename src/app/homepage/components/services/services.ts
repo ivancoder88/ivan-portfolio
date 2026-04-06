@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/c
 import { LanguageService } from '../../services/language.service';
 import { AppIcon, IconName } from '../icon/icon';
 import { SectionHeader } from '../section-header/section-header';
-import { Section } from '../../../shared/components/section/section';
-import { RevealDirective } from '../../../shared/directives/reveal.directive';
+import { Section } from '../../shared/components/section/section';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 interface Service {
   title: string;

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppIcon } from '../icon/icon';
 import { SectionHeader } from '../section-header/section-header';
-import { Section } from '../../../shared/components/section/section';
-import { RevealDirective } from '../../../shared/directives/reveal.directive';
+import { Section } from '../../shared/components/section/section';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-contact',

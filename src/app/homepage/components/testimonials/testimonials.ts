@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SectionHeader } from '../section-header/section-header';
-import { Section } from '../../../shared/components/section/section';
-import { RevealDirective } from '../../../shared/directives/reveal.directive';
+import { Section } from '../../shared/components/section/section';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 interface Testimonial {
   name: string;

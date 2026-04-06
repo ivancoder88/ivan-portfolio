@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
 import { AppIcon, IconName } from '../icon/icon';
-import { Section } from '../../../shared/components/section/section';
-import { RevealDirective } from '../../../shared/directives/reveal.directive';
+import { Section } from '../../shared/components/section/section';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 interface SocialLink {
   icon: IconName;
