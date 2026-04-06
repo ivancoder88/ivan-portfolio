@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, viewChildren, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, viewChildren, afterNextRender } from '@angular/core';
 
 interface Skill {
   name: string;
@@ -13,8 +13,8 @@ interface Skill {
     <section id="skills" class="w-full py-24 px-6 md:px-12 lg:px-24 bg-white dark:bg-slate-900 transition-colors duration-300">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16 reveal" #reveal>
-          <h2 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-4">My Skills</h2>
-          <div class="w-24 h-1 bg-slate-900 dark:bg-white mx-auto"></div>
+          <h2 class="text-4xl md:text-6xl font-black text-primary mb-4">My Skills</h2>
+          <div class="w-24 h-1 bg-primary mx-auto"></div>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -41,10 +41,10 @@ interface Skill {
                     [attr.stroke-dasharray]="2 * Math.PI * 40"
                     [attr.stroke-dashoffset]="2 * Math.PI * 40 * (1 - skill.percentage / 100)"
                     stroke-linecap="round"
-                    class="text-slate-900 dark:text-white transition-all duration-1000 ease-out"
+                    class="text-primary transition-all duration-1000 ease-out"
                   />
                 </svg>
-                <div class="absolute inset-0 flex items-center justify-center font-bold text-xl text-slate-900 dark:text-white">
+                <div class="absolute inset-0 flex items-center justify-center font-bold text-xl text-primary">
                   {{ skill.percentage }}%
                 </div>
               </div>
@@ -69,7 +69,7 @@ interface Skill {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Skills implements AfterViewInit {
+export class Skills {
   protected readonly Math = Math;
   protected readonly skills: Skill[] = [
     { name: 'Angular', percentage: 95 },
@@ -84,15 +84,17 @@ export class Skills implements AfterViewInit {
 
   protected readonly revealElements = viewChildren<ElementRef>('reveal');
 
-  public ngAfterViewInit(): void {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
+  constructor() {
+    afterNextRender(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
 
-    this.revealElements().forEach(el => observer.observe(el.nativeElement));
+      this.revealElements().forEach(el => observer.observe(el.nativeElement));
+    });
   }
 }

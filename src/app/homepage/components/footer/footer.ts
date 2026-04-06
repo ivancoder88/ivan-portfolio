@@ -17,9 +17,9 @@ import { ScrollService } from '../../services/scroll.service';
         </p>
 
         <div class="flex gap-6">
-          <a href="#" class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">Twitter</a>
-          <a href="#" class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">LinkedIn</a>
-          <a href="#" class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">GitHub</a>
+          <a href="#" class="text-slate-400 hover:text-primary transition-colors">Twitter</a>
+          <a href="#" class="text-slate-400 hover:text-primary transition-colors">LinkedIn</a>
+          <a href="#" class="text-slate-400 hover:text-primary transition-colors">GitHub</a>
         </div>
       </div>
     </footer>

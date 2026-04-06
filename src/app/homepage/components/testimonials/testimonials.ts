@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, viewChildren, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, viewChildren, afterNextRender } from '@angular/core';
 
 interface Testimonial {
   name: string;
@@ -15,8 +15,8 @@ interface Testimonial {
     <section id="testimonials" class="w-full py-24 px-6 md:px-12 lg:px-24 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16 reveal" #reveal>
-          <h2 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-4">What Clients Say</h2>
-          <div class="w-24 h-1 bg-slate-900 dark:bg-white mx-auto"></div>
+          <h2 class="text-4xl md:text-6xl font-black text-primary mb-4">What Clients Say</h2>
+          <div class="w-24 h-1 bg-primary mx-auto"></div>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -26,7 +26,7 @@ interface Testimonial {
               #reveal
               [style.transition-delay]="i * 100 + 'ms'"
             >
-              <div class="flex gap-1 mb-6 text-yellow-400">
+              <div class="flex gap-1 mb-6 text-primary">
                 @for (star of [1,2,3,4,5]; track star) {
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                     <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
@@ -37,14 +37,14 @@ interface Testimonial {
                 "{{ testimonial.content }}"
               </p>
               <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-slate-200 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-400">
+                <div class="w-12 h-12 bg-slate-200 dark:bg-slate-800 rounded-full flex items-center justify-center text-primary">
                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                       <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
                    </svg>
                 </div>
                 <div>
                   <h4 class="font-bold text-slate-900 dark:text-white">{{ testimonial.name }}</h4>
-                  <span class="text-sm text-slate-500">{{ testimonial.role }}</span>
+                  <span class="text-sm text-primary font-medium">{{ testimonial.role }}</span>
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@ interface Testimonial {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Testimonials implements AfterViewInit {
+export class Testimonials {
   protected readonly testimonials: Testimonial[] = [
     { name: 'John Doe', role: 'CEO at Tech Corp', content: 'Ivan is an exceptional developer who transformed our vision into a stunning digital reality. His attention to detail and technical expertise are unmatched.', rating: 5 },
     { name: 'Jane Smith', role: 'Marketing Manager', content: 'Working with Ivan was a breeze. He delivered our project on time and exceeded our expectations in every way. Highly recommended!', rating: 5 },
@@ -76,15 +76,17 @@ export class Testimonials implements AfterViewInit {
 
   protected readonly revealElements = viewChildren<ElementRef>('reveal');
 
-  public ngAfterViewInit(): void {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
+  constructor() {
+    afterNextRender(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
 
-    this.revealElements().forEach(el => observer.observe(el.nativeElement));
+      this.revealElements().forEach(el => observer.observe(el.nativeElement));
+    });
   }
 }
