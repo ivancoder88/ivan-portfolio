@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, computed, ElementRef, viewChildren, AfterViewInit } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
-import { NgOptimizedImage } from '@angular/common';
 
 interface SocialLink {
   icon: string;
@@ -11,7 +10,7 @@ interface SocialLink {
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [NgOptimizedImage],
+  imports: [],
   template: `
     <section id="home" class="w-full min-h-screen bg-white dark:bg-slate-900 transition-colors duration-300 pt-12 pb-24 px-6 md:px-12 lg:px-24">
       <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
