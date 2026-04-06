@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, viewChildren, afterNextRender } from '@angular/core';
+import { SectionHeader } from '../section-header/section-header';
 
 interface ResumeItem {
   year: string;
@@ -9,14 +10,11 @@ interface ResumeItem {
 @Component({
   selector: 'app-resume',
   standalone: true,
-  imports: [],
+  imports: [SectionHeader],
   template: `
     <section id="resume" class="w-full py-24 px-6 md:px-12 lg:px-24 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300">
       <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16 reveal" #reveal>
-          <h2 class="text-4xl md:text-6xl font-black text-primary mb-4">My Resume</h2>
-          <div class="w-24 h-1 bg-primary mx-auto"></div>
-        </div>
+        <app-section-header title="My Resume" />
 
         <div class="grid lg:grid-cols-2 gap-16">
           <!-- Experience -->

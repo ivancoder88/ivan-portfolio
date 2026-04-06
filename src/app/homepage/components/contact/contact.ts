@@ -1,17 +1,15 @@
 import { ChangeDetectionStrategy, Component, ElementRef, viewChildren, afterNextRender } from '@angular/core';
 import { AppIcon } from '../icon/icon';
+import { SectionHeader } from '../section-header/section-header';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [AppIcon],
+  imports: [AppIcon, SectionHeader],
   template: `
     <section id="contact" class="w-full py-24 px-6 md:px-12 lg:px-24 bg-white dark:bg-slate-900 transition-colors duration-300">
       <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16 reveal" #reveal>
-          <h2 class="text-4xl md:text-6xl font-black text-primary mb-4">Get In Touch</h2>
-          <div class="w-24 h-1 bg-primary mx-auto"></div>
-        </div>
+        <app-section-header title="Get In Touch" />
 
         <div class="grid lg:grid-cols-2 gap-16">
           <!-- Contact Info -->

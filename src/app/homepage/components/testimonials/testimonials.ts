@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, viewChildren, afterNextRender } from '@angular/core';
+import { SectionHeader } from '../section-header/section-header';
 
 interface Testimonial {
   name: string;
@@ -10,14 +11,11 @@ interface Testimonial {
 @Component({
   selector: 'app-testimonials',
   standalone: true,
-  imports: [],
+  imports: [SectionHeader],
   template: `
     <section id="testimonials" class="w-full py-24 px-6 md:px-12 lg:px-24 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300">
       <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16 reveal" #reveal>
-          <h2 class="text-4xl md:text-6xl font-black text-primary mb-4">What Clients Say</h2>
-          <div class="w-24 h-1 bg-primary mx-auto"></div>
-        </div>
+        <app-section-header title="What Clients Say" />
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           @for (testimonial of testimonials; track testimonial.name; let i = $index) {

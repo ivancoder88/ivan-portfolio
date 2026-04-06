@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, viewChildren, afterNextRender } from '@angular/core';
+import { SectionHeader } from '../section-header/section-header';
 
 interface Skill {
   name: string;
@@ -8,14 +9,11 @@ interface Skill {
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [],
+  imports: [SectionHeader],
   template: `
     <section id="skills" class="w-full py-24 px-6 md:px-12 lg:px-24 bg-white dark:bg-slate-900 transition-colors duration-300">
       <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16 reveal" #reveal>
-          <h2 class="text-4xl md:text-6xl font-black text-primary mb-4">My Skills</h2>
-          <div class="w-24 h-1 bg-primary mx-auto"></div>
-        </div>
+        <app-section-header title="My Skills" />
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           @for (skill of skills; track skill.name; let i = $index) {
