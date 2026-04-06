@@ -14,7 +14,14 @@ interface NavLink {
   imports: [],
   template: `
     <!-- Static Navbar -->
-    <nav class="w-full bg-white dark:bg-slate-900 transition-colors duration-300 py-6 px-6 md:px-12 flex justify-between items-center z-40 relative">
+    <nav 
+      class="w-full bg-white dark:bg-slate-900 transition-colors duration-300 py-6 px-6 md:px-12 flex justify-between items-center z-50"
+      [class.relative]="!isMobileMenuOpen()"
+      [class.fixed]="isMobileMenuOpen()"
+      [class.top-0]="isMobileMenuOpen()"
+      [class.left-0]="isMobileMenuOpen()"
+      [class.shadow-lg]="isMobileMenuOpen()"
+    >
       <div class="text-2xl font-bold text-slate-900 dark:text-white cursor-pointer" (click)="scrollService.scrollToSection('home')">
         {{ name }}
       </div>
@@ -23,15 +30,15 @@ interface NavLink {
       <div class="hidden lg:flex items-center gap-8">
         @for (link of navLinks(); track link.id) {
           <a
-            class="relative text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer group py-1"
+            class="relative text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer group py-1"
             (click)="scrollService.scrollToSection(link.id)"
           >
             {{ link.label }}
-            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-slate-900 dark:bg-white origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
           </a>
         }
         <button
-          class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-8 py-3 rounded-full font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-all transform hover:scale-105 active:scale-95"
+          class="bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-primary/90 transition-all transform hover:scale-105 active:scale-95"
           (click)="scrollService.scrollToSection('contact')"
         >
           {{ lang.t().nav.hireMe }}
@@ -67,10 +74,18 @@ interface NavLink {
             </svg>
           }
         </button>
-        <button (click)="toggleMobileMenu()" class="flex flex-col justify-center items-center w-10 h-10 gap-1.5 relative z-50 overflow-hidden">
-          <span class="w-6 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300 transform" [class.rotate-45]="isMobileMenuOpen()" [class.translate-y-2]="isMobileMenuOpen()"></span>
-          <span class="w-6 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300" [class.opacity-0]="isMobileMenuOpen()" [class.-translate-x-full]="isMobileMenuOpen()"></span>
-          <span class="w-6 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300 transform" [class.-rotate-45]="isMobileMenuOpen()" [class.-translate-y-2]="isMobileMenuOpen()"></span>
+        <button (click)="toggleMobileMenu()" class="flex flex-col justify-center items-center w-10 h-10 relative z-50">
+          @if (!isMobileMenuOpen()) {
+            <div class="flex flex-col gap-1.5">
+              <span class="w-6 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300"></span>
+              <span class="w-6 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300"></span>
+              <span class="w-6 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300"></span>
+            </div>
+          } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 text-slate-900 dark:text-white">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          }
         </button>
       </div>
     </nav>
@@ -78,8 +93,8 @@ interface NavLink {
     <!-- Sticky Navbar -->
     <nav 
       class="fixed top-0 left-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg transition-transform duration-500 py-4 px-6 md:px-12 flex justify-between items-center z-50"
-      [class.-translate-y-full]="!scrollService.isThresholdExceeded()"
-      [class.translate-y-0]="scrollService.isThresholdExceeded()"
+      [class.-translate-y-full]="!scrollService.isThresholdExceeded() || isMobileMenuOpen()"
+      [class.translate-y-0]="scrollService.isThresholdExceeded() && !isMobileMenuOpen()"
     >
       <div class="text-xl font-bold text-slate-900 dark:text-white cursor-pointer" (click)="scrollService.scrollToSection('home')">
         {{ name }}
@@ -87,25 +102,33 @@ interface NavLink {
       <div class="hidden lg:flex items-center gap-6">
         @for (link of navLinks(); track link.id) {
           <a
-            class="relative text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer group py-1"
+            class="relative text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer group py-1"
             (click)="scrollService.scrollToSection(link.id)"
           >
             {{ link.label }}
-            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-slate-900 dark:bg-white origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
           </a>
         }
         <button
-          class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-2 rounded-full text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-all transform hover:scale-105 active:scale-95"
+          class="bg-primary text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition-all transform hover:scale-105 active:scale-95"
           (click)="scrollService.scrollToSection('contact')"
         >
           {{ lang.t().nav.hireMe }}
         </button>
       </div>
       <div class="lg:hidden">
-        <button (click)="toggleMobileMenu()" class="flex flex-col justify-center items-center w-8 h-8 gap-1.5">
-          <span class="w-5 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300" [class.rotate-45]="isMobileMenuOpen()" [class.translate-y-2]="isMobileMenuOpen()"></span>
-          <span class="w-5 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300" [class.opacity-0]="isMobileMenuOpen()"></span>
-          <span class="w-5 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300" [class.-rotate-45]="isMobileMenuOpen()" [class.-translate-y-2]="isMobileMenuOpen()"></span>
+        <button (click)="toggleMobileMenu()" class="flex flex-col justify-center items-center w-8 h-8 relative z-50">
+          @if (!isMobileMenuOpen()) {
+            <div class="flex flex-col gap-1.5">
+              <span class="w-5 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300"></span>
+              <span class="w-5 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300"></span>
+              <span class="w-5 h-0.5 bg-slate-900 dark:bg-white transition-all duration-300"></span>
+            </div>
+          } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-slate-900 dark:text-white">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          }
         </button>
       </div>
     </nav>
@@ -115,19 +138,19 @@ interface NavLink {
       <div class="fixed inset-0 bg-white dark:bg-slate-900 z-40 lg:hidden pt-24 px-6 flex flex-col items-center gap-8 mobile-menu-reveal">
         @for (link of navLinks(); track link.id) {
           <a
-            class="text-2xl font-bold text-slate-900 dark:text-white hover:text-slate-600 dark:hover:text-slate-400 transition-colors"
+            class="text-2xl font-bold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors"
             (click)="onMobileLinkClick(link.id)"
           >
             {{ link.label }}
           </a>
         }
         <button
-          class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-10 py-4 rounded-full text-xl font-bold mt-4"
+          class="bg-primary text-white px-10 py-4 rounded-full text-xl font-bold mt-4"
           (click)="onMobileLinkClick('contact')"
         >
           {{ lang.t().nav.hireMe }}
         </button>
-        <button (click)="lang.toggleLanguage()" class="font-bold text-lg uppercase px-4 py-2 border-2 border-slate-900 dark:border-white rounded-lg">
+        <button (click)="lang.toggleLanguage()" class="font-bold text-lg uppercase px-4 py-2 border-2 border-primary text-primary rounded-lg">
           {{ lang.currentLanguage() === 'en' ? 'hr' : 'en' }}
         </button>
       </div>

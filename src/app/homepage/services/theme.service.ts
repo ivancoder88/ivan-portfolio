@@ -1,5 +1,5 @@
 import { Injectable, signal, effect, PLATFORM_ID, inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class ThemeService {
   private readonly THEME_KEY = 'portfolio-theme';
   private platformId = inject(PLATFORM_ID);
+  private document = inject(DOCUMENT);
   private theme = signal<'light' | 'dark'>('light');
 
   public readonly currentTheme = this.theme.asReadonly();
@@ -18,11 +19,7 @@ export class ThemeService {
       effect(() => {
         const current = this.theme();
         localStorage.setItem(this.THEME_KEY, current);
-        if (current === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+        this.document.documentElement.classList.toggle('dark', current === 'dark');
       });
     }
   }
