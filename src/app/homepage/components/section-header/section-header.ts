@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, input, viewChild, after
   standalone: true,
   template: `
     <div class="text-center mb-16 reveal" #header>
-      <h2 class="text-4xl md:text-6xl font-black text-primary mb-4">
+      <h2 class="text-3xl md:text-4xl font-black text-primary mb-4">
         {{ title() }}
       </h2>
       <div class="w-24 h-1 bg-primary mx-auto"></div>
