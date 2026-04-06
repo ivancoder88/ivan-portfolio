@@ -16,10 +16,10 @@ interface SocialLink {
     <section id="home" class="w-full min-h-screen bg-white dark:bg-slate-900 transition-colors duration-300 pt-12 pb-24 px-6 md:px-12 lg:px-24">
       <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
         <div class="flex flex-col gap-6 order-2 lg:order-1 reveal" #reveal>
-          <span class="text-xl md:text-2xl font-medium text-primary">
+          <span class="text-2xl md:text-3xl font-medium text-slate-900 dark:text-white">
             {{ lang.t().hero.greeting }}
           </span>
-          <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white leading-tight">
+          <h1 class="text-5xl md:text-7xl font-extrabold text-primary leading-tight">
             {{ lang.t().hero.role }}
           </h1>
           <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
