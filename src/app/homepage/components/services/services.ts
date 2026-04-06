@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, computed, ElementRef, viewChildren, afterNextRender } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
 import { AppIcon, IconName } from '../icon/icon';
 import { SectionHeader } from '../section-header/section-header';
+import { Section } from '../../../shared/components/section/section';
+import { RevealDirective } from '../../../shared/directives/reveal.directive';
 
 interface Service {
   title: string;
@@ -12,47 +14,33 @@ interface Service {
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [AppIcon, SectionHeader],
+  imports: [AppIcon, SectionHeader, Section, RevealDirective],
   template: `
-    <section id="services" class="w-full py-24 px-6 md:px-12 lg:px-24 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300">
-      <div class="max-w-7xl mx-auto">
-        <app-section-header [title]="lang.t().services.title" />
+    <app-section id="services" variant="slate">
+      <app-section-header [title]="lang.t().services.title" />
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          @for (service of services(); track service.title; let i = $index) {
-            <div 
-              class="group bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 reveal" 
-              #reveal
-              [style.transition-delay]="i * 100 + 'ms'"
-            >
-              <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                <app-icon [name]="service.icon" class="w-8 h-8" />
-              </div>
-              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ service.title }}</h3>
-              <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                {{ service.description }}
-              </p>
-              <button class="mt-6 flex items-center gap-2 font-bold text-primary group-hover:translate-x-2 transition-transform">
-                Read More
-                <app-icon name="arrow-right" class="w-4 h-4" />
-              </button>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for (service of services(); track service.title; let i = $index) {
+          <div 
+            appReveal
+            class="group bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2" 
+            [style.transition-delay]="i * 100 + 'ms'"
+          >
+            <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+              <app-icon [name]="service.icon" class="w-8 h-8" />
             </div>
-          }
-        </div>
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ service.title }}</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              {{ service.description }}
+            </p>
+            <button class="mt-6 flex items-center gap-2 font-bold text-primary group-hover:translate-x-2 transition-transform">
+              Read More
+              <app-icon name="arrow-right" class="w-4 h-4" />
+            </button>
+          </div>
+        }
       </div>
-    </section>
-
-    <style>
-      .reveal {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-      }
-      .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    </style>
+    </app-section>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -76,20 +64,4 @@ export class Services {
       icon: 'app'
     }
   ]);
-
-  protected readonly revealElements = viewChildren<ElementRef>('reveal');
-
-  constructor() {
-    afterNextRender(() => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.1 });
-
-      this.revealElements().forEach(el => observer.observe(el.nativeElement));
-    });
-  }
 }

@@ -1,19 +1,20 @@
-import { Injectable, signal, effect, PLATFORM_ID, inject } from '@angular/core';
-import { isPlatformBrowser, DOCUMENT } from '@angular/common';
+import { Injectable, signal, effect, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { PlatformService } from '../../core/services/platform.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
   private readonly THEME_KEY = 'portfolio-theme';
-  private platformId = inject(PLATFORM_ID);
+  private platform = inject(PlatformService);
   private document = inject(DOCUMENT);
   private theme = signal<'light' | 'dark'>('light');
 
   public readonly currentTheme = this.theme.asReadonly();
 
   constructor() {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.platform.isBrowser) {
       this.theme.set(this.getInitialTheme());
       
       effect(() => {

@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, ElementRef, viewChildren, afterNextRender } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SectionHeader } from '../section-header/section-header';
+import { Section } from '../../../shared/components/section/section';
+import { RevealDirective } from '../../../shared/directives/reveal.directive';
 
 interface Skill {
   name: string;
@@ -9,61 +11,47 @@ interface Skill {
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [SectionHeader],
+  imports: [SectionHeader, Section, RevealDirective],
   template: `
-    <section id="skills" class="w-full py-24 px-6 md:px-12 lg:px-24 bg-white dark:bg-slate-900 transition-colors duration-300">
-      <div class="max-w-7xl mx-auto">
-        <app-section-header title="My Skills" />
+    <app-section id="skills">
+      <app-section-header title="My Skills" />
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          @for (skill of skills; track skill.name; let i = $index) {
-            <div 
-              class="flex flex-col items-center bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl reveal" 
-              #reveal
-              [style.transition-delay]="i * 100 + 'ms'"
-            >
-              <div class="relative w-24 h-24 mb-6">
-                <svg class="w-full h-full transform -rotate-90">
-                  <circle 
-                    cx="48" cy="48" r="40" 
-                    stroke="currentColor" 
-                    stroke-width="8" 
-                    fill="transparent" 
-                    class="text-slate-200 dark:text-slate-700"
-                  />
-                  <circle 
-                    cx="48" cy="48" r="40" 
-                    stroke="currentColor" 
-                    stroke-width="8" 
-                    fill="transparent" 
-                    [attr.stroke-dasharray]="2 * Math.PI * 40"
-                    [attr.stroke-dashoffset]="2 * Math.PI * 40 * (1 - skill.percentage / 100)"
-                    stroke-linecap="round"
-                    class="text-primary transition-all duration-1000 ease-out"
-                  />
-                </svg>
-                <div class="absolute inset-0 flex items-center justify-center font-bold text-xl text-primary">
-                  {{ skill.percentage }}%
-                </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        @for (skill of skills; track skill.name; let i = $index) {
+          <div 
+            appReveal
+            class="flex flex-col items-center bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl" 
+            [style.transition-delay]="i * 100 + 'ms'"
+          >
+            <div class="relative w-24 h-24 mb-6">
+              <svg class="w-full h-full transform -rotate-90">
+                <circle 
+                  cx="48" cy="48" r="40" 
+                  stroke="currentColor" 
+                  stroke-width="8" 
+                  fill="transparent" 
+                  class="text-slate-200 dark:text-slate-700"
+                />
+                <circle 
+                  cx="48" cy="48" r="40" 
+                  stroke="currentColor" 
+                  stroke-width="8" 
+                  fill="transparent" 
+                  [attr.stroke-dasharray]="2 * Math.PI * 40"
+                  [attr.stroke-dashoffset]="2 * Math.PI * 40 * (1 - skill.percentage / 100)"
+                  stroke-linecap="round"
+                  class="text-primary transition-all duration-1000 ease-out"
+                />
+              </svg>
+              <div class="absolute inset-0 flex items-center justify-center font-bold text-xl text-primary">
+                {{ skill.percentage }}%
               </div>
-              <h3 class="text-xl font-bold text-slate-900 dark:text-white">{{ skill.name }}</h3>
             </div>
-          }
-        </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">{{ skill.name }}</h3>
+          </div>
+        }
       </div>
-    </section>
-
-    <style>
-      .reveal {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-      }
-      .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    </style>
+    </app-section>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -79,20 +67,4 @@ export class Skills {
     { name: 'AWS', percentage: 65 },
     { name: 'Figma', percentage: 60 },
   ];
-
-  protected readonly revealElements = viewChildren<ElementRef>('reveal');
-
-  constructor() {
-    afterNextRender(() => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.1 });
-
-      this.revealElements().forEach(el => observer.observe(el.nativeElement));
-    });
-  }
 }
