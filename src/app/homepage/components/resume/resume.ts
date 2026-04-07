@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/core';
 import { SectionHeader } from '../section-header/section-header';
 import { Section } from '../../shared/components/section/section';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
+import { LanguageService } from '../../services/language.service';
 
 interface ResumeItem {
   year: string;
@@ -15,7 +16,7 @@ interface ResumeItem {
   imports: [SectionHeader, Section, RevealDirective],
   template: `
     <app-section id="resume" variant="slate">
-      <app-section-header title="My Resume" />
+      <app-section-header [title]="lang.t().resume.title" />
 
       <div class="grid lg:grid-cols-2 gap-16">
         <!-- Experience -->
@@ -24,10 +25,10 @@ interface ResumeItem {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 text-primary">
               <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 .621-.504 1.125-1.125 1.125H4.875c-.621 0-1.125-.504-1.125-1.125v-4.25m16.5 0a2.25 2.25 0 00-2.25-2.25H18.75m-15 0a2.25 2.25 0 00-2.25 2.25H5.25m15 0V11.75c0-.621-.504-1.125-1.125-1.125h-4.375c-.621 0-1.125.504-1.125 1.125v1.4m-1.5 1.5l1.5-1.5m0 0l-1.5-1.5m1.5 1.5H10.5M5.25 10.5h13.5" />
             </svg>
-            Experience
+            {{ lang.t().resume.experience }}
           </h3>
           <div class="space-y-8">
-            @for (item of experience; track item.title; let i = $index) {
+            @for (item of experience(); track item.title; let i = $index) {
               <div 
                 appReveal
                 class="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all" 
@@ -49,10 +50,10 @@ interface ResumeItem {
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 5.487L12 9.994l7.74-4.507a.75.75 0 01.76 1.288l-8 4.663a.75.75 0 01-.76 0l-8-4.663a.75.75 0 01.76-1.288z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 14.807L12 19.314l7.74-4.507a.75.75 0 01.76 1.288l-8 4.663a.75.75 0 01-.76 0l-8-4.663a.75.75 0 01.76-1.288z" />
             </svg>
-            Education
+            {{ lang.t().resume.education }}
           </h3>
           <div class="space-y-8">
-            @for (item of education; track item.title; let i = $index) {
+            @for (item of education(); track item.title; let i = $index) {
               <div 
                 appReveal
                 class="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all" 
@@ -71,14 +72,8 @@ interface ResumeItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Resume {
-  protected readonly experience: ResumeItem[] = [
-    { year: '2022 - Present', title: 'Senior Software Developer', place: 'Tech Solutions Inc.' },
-    { year: '2020 - 2022', title: 'Full Stack Developer', place: 'Creative Digital Agency' },
-    { year: '2018 - 2020', title: 'Junior Developer', place: 'Startup Hub' },
-  ];
+  protected readonly lang = inject(LanguageService);
 
-  protected readonly education: ResumeItem[] = [
-    { year: '2014 - 2018', title: 'Bachelor of Computer Science', place: 'University of Zagreb' },
-    { year: '2010 - 2014', title: 'High School Diploma', place: 'Informatics High School' },
-  ];
+  protected readonly experience = computed<ResumeItem[]>(() => this.lang.t().resume.experienceItems);
+  protected readonly education = computed<ResumeItem[]>(() => this.lang.t().resume.educationItems);
 }

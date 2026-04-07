@@ -34,7 +34,7 @@ interface Service {
               {{ service.description }}
             </p>
             <button class="mt-6 flex items-center gap-2 font-bold text-primary group-hover:translate-x-2 transition-transform">
-              Read More
+              {{ lang.t().services.readMore }}
               <app-icon name="arrow-right" class="w-4 h-4" />
             </button>
           </div>
@@ -47,21 +47,5 @@ interface Service {
 export class Services {
   protected readonly lang = inject(LanguageService);
   
-  protected readonly services = computed<Service[]>(() => [
-    {
-      title: 'Web Development',
-      description: 'Building modern, responsive, and high-performance web applications using the latest technologies.',
-      icon: 'web'
-    },
-    {
-      title: 'UI/UX Design',
-      description: 'Creating intuitive and visually appealing user interfaces that provide seamless digital experiences.',
-      icon: 'uiux'
-    },
-    {
-      title: 'App Development',
-      description: 'Developing native and cross-platform mobile applications with focus on performance and usability.',
-      icon: 'app'
-    }
-  ]);
+  protected readonly services = computed<Service[]>(() => this.lang.t().services.items as Service[]);
 }

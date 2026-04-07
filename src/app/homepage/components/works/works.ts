@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/core';
 import { SectionHeader } from '../section-header/section-header';
 import { Section } from '../../shared/components/section/section';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
+import { LanguageService } from '../../services/language.service';
 
 interface Project {
   title: string;
   category: string;
-  image: string;
 }
 
 @Component({
@@ -15,10 +15,10 @@ interface Project {
   imports: [SectionHeader, Section, RevealDirective],
   template: `
     <app-section id="works">
-      <app-section-header title="My Works" />
+      <app-section-header [title]="lang.t().works.title" />
 
       <div class="grid md:grid-cols-2 gap-8">
-        @for (project of projects; track project.title; let i = $index) {
+        @for (project of projects(); track project.title; let i = $index) {
           <div 
             appReveal
             class="group relative overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-800" 
@@ -41,10 +41,7 @@ interface Project {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Works {
-  protected readonly projects: Project[] = [
-    { title: 'Digital Agency Website', category: 'Web Development', image: '' },
-    { title: 'E-commerce Mobile App', category: 'App Design', image: '' },
-    { title: 'Personal Brand Identity', category: 'Branding', image: '' },
-    { title: 'SaaS Dashboard', category: 'UI/UX Design', image: '' },
-  ];
+  protected readonly lang = inject(LanguageService);
+
+  protected readonly projects = computed<Project[]>(() => this.lang.t().works.items);
 }

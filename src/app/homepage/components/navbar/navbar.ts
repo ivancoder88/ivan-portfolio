@@ -16,7 +16,7 @@ interface NavLink {
   imports: [StaticNavbar, StickyNavbar, MobileHamburger, MobileMenuOverlay],
   template: `
     <app-static-navbar
-      [name]="name"
+      [name]="name()"
       [navLinks]="navLinks()"
       [isMobileMenuOpen]="isMobileMenuOpen()"
     >
@@ -27,7 +27,7 @@ interface NavLink {
     </app-static-navbar>
 
     <app-sticky-navbar
-      [name]="name"
+      [name]="name()"
       [navLinks]="navLinks()"
       [isMobileMenuOpen]="isMobileMenuOpen()"
     >
@@ -49,7 +49,7 @@ export class Navbar {
   protected readonly lang = inject(LanguageService);
   protected readonly scrollService = inject(ScrollService);
 
-  protected readonly name = 'Ivan Ivicek';
+  protected readonly name = computed(() => this.lang.t().name);
   protected readonly isMobileMenuOpen = signal(false);
 
   protected readonly navLinks = computed<NavLink[]>(() => [

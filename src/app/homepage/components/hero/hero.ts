@@ -78,10 +78,10 @@ export class Hero {
   protected readonly lang = inject(LanguageService);
   
   protected readonly socialLinks = computed<SocialLink[]>(() => [
-    { name: 'X', url: '#', icon: 'x' },
-    { name: 'Instagram', url: '#', icon: 'instagram' },
-    { name: 'LinkedIn', url: '#', icon: 'linkedin' },
-    { name: 'Facebook', url: '#', icon: 'facebook' },
+    { name: this.lang.t().footer.social.twitter, url: '#', icon: 'x' },
+    { name: this.lang.t().footer.social.instagram, url: '#', icon: 'instagram' },
+    { name: this.lang.t().footer.social.linkedin, url: '#', icon: 'linkedin' },
+    { name: this.lang.t().footer.social.facebook, url: '#', icon: 'facebook' },
   ]);
 
   protected readonly stats = computed<string[]>(() => [

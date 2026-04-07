@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/core';
 import { SectionHeader } from '../section-header/section-header';
 import { Section } from '../../shared/components/section/section';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
+import { LanguageService } from '../../services/language.service';
 
 interface Skill {
   name: string;
@@ -14,10 +15,10 @@ interface Skill {
   imports: [SectionHeader, Section, RevealDirective],
   template: `
     <app-section id="skills">
-      <app-section-header title="My Skills" />
+      <app-section-header [title]="lang.t().skills.title" />
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        @for (skill of skills; track skill.name; let i = $index) {
+        @for (skill of skills(); track skill.name; let i = $index) {
           <div 
             appReveal
             class="flex flex-col items-center bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl" 
@@ -57,14 +58,7 @@ interface Skill {
 })
 export class Skills {
   protected readonly Math = Math;
-  protected readonly skills: Skill[] = [
-    { name: 'Angular', percentage: 95 },
-    { name: 'TypeScript', percentage: 90 },
-    { name: 'Tailwind CSS', percentage: 85 },
-    { name: 'Node.js', percentage: 80 },
-    { name: 'PostgreSQL', percentage: 75 },
-    { name: 'Docker', percentage: 70 },
-    { name: 'AWS', percentage: 65 },
-    { name: 'Figma', percentage: 60 },
-  ];
+  protected readonly lang = inject(LanguageService);
+
+  protected readonly skills = computed<Skill[]>(() => this.lang.t().skills.items);
 }
