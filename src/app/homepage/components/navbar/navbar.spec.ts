@@ -4,7 +4,7 @@ import { LanguageService } from '../../services/language.service';
 import { ThemeService } from '../../services/theme.service';
 import { ScrollService } from '../../services/scroll.service';
 import { signal } from '@angular/core';
-import { vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('Navbar', () => {
   let component: Navbar;
@@ -25,7 +25,7 @@ describe('Navbar', () => {
     languageServiceMock = {
       currentLanguage: signal('en'),
       t: signal({
-        nav: { home: 'Home', hireMe: 'Hire me' }
+        nav: { home: 'Home', hireMe: 'Hire me', services: 'Services', works: 'Works', resume: 'Resume', skills: 'Skills', testimonials: 'Testimonials', contact: 'Contact' }
       }),
       toggleLanguage: vi.fn()
     };
@@ -54,25 +54,32 @@ describe('Navbar', () => {
   });
 
   it('should call scrollToSection when a link is clicked', () => {
+    // Links are now inside app-static-navbar or app-sticky-navbar
+    // We can find them in the shadow DOM or just in the rendered nativeElement
     const links = fixture.nativeElement.querySelectorAll('a');
     links[0].click();
     expect(scrollServiceMock.scrollToSection).toHaveBeenCalled();
   });
 
   it('should toggle mobile menu', () => {
-    const hamburger = fixture.nativeElement.querySelector('button.flex-col');
+    // Hamburger is now app-mobile-hamburger component
+    const hamburger = fixture.nativeElement.querySelector('app-mobile-hamburger button');
     hamburger.click();
     fixture.detectChanges();
-    // In Navbar component, isMobileMenuOpen is protected, so we check the DOM or a getter if available.
-    // Let's check for the presence of the mobile menu overlay
-    const overlay = fixture.nativeElement.querySelector('.mobile-menu-reveal');
-    expect(overlay).toBeTruthy();
+    
+    // Check for the presence of the mobile menu overlay component
+    const overlay = fixture.nativeElement.querySelector('app-mobile-menu-overlay');
+    // The overlay is always there in the DOM but its content is conditional with @if
+    // Let's check if the content of the overlay is visible
+    const overlayContent = fixture.nativeElement.querySelector('.mobile-menu-reveal');
+    expect(overlayContent).toBeTruthy();
   });
 
   it('should show sticky navbar when threshold is exceeded', () => {
     scrollServiceMock.isThresholdExceeded.set(true);
     fixture.detectChanges();
-    const stickyNav = fixture.nativeElement.querySelector('nav.fixed');
+    // Stickynav is app-sticky-navbar, but the internal nav has fixed class
+    const stickyNav = fixture.nativeElement.querySelector('app-sticky-navbar nav.fixed');
     expect(stickyNav.classList.contains('translate-y-0')).toBe(true);
   });
 });
