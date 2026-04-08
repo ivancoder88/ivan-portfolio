@@ -1,4 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
+import { min } from 'rxjs';
 
 export type Language = 'en' | 'hr';
 
@@ -113,7 +114,16 @@ export class LanguageService {
           emailPlaceholder: 'Your Email',
           message: 'Message',
           messagePlaceholder: 'Your Message',
-          send: 'Send Message'
+          send: 'Send Message',
+          successMessage: 'Message sent successfully!',
+          validation: {
+            nameRequired: 'Name is required',
+            emailRequired: 'Email is required',
+            messageRequired: 'Message is required',
+            emailInvalid: 'Invalid email address',
+            minLengthName: 'Name must be at least 2 characters',
+            minLenghtMessage: 'Message must be at least 10 characters'
+          }
         }
       },
       footer: {
@@ -229,7 +239,16 @@ export class LanguageService {
           emailPlaceholder: 'Vaš email',
           message: 'Poruka',
           messagePlaceholder: 'Vaša poruka',
-          send: 'Pošalji poruku'
+          send: 'Pošalji poruku',
+          successMessage: 'Poruka uspješno poslana!',
+          validation: {
+            nameRequired: 'Ime je obavezno',
+            emailRequired: 'Email je obavezan',
+            messageRequired: 'Poruka je obavezna',
+            emailInvalid: 'Neispravna email adresa',
+            minLengthName: 'Ime mora imati najmanje 2 znaka',
+            minLenghtMessage: 'Poruka mora imati najmanje 10 znakova'
+          }
         }
       },
       footer: {
