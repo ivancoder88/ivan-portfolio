@@ -6,23 +6,34 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+const messagesFile = join(import.meta.dirname, 'messages.json');
+
+app.use(express.json());
+
+app.post('/api/contact', (req, res) => {
+  const { name, email, message } = req.body ?? {};
+
+  if (!name || !email || !message) {
+    res.status(400).json({ error: 'name, email and message are required' });
+    return;
+  }
+
+  const messages: unknown[] = existsSync(messagesFile)
+    ? JSON.parse(readFileSync(messagesFile, 'utf-8'))
+    : [];
+
+  messages.push({ name, email, message, receivedAt: new Date().toISOString() });
+  writeFileSync(messagesFile, JSON.stringify(messages, null, 2));
+
+  res.status(201).json({ success: true });
+});
 
 /**
  * Serve static files from /browser
