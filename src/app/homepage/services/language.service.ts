@@ -201,7 +201,9 @@ export class LanguageService {
           message: 'Message',
           messagePlaceholder: 'Your Message',
           send: 'Send Message',
+          sending: 'Sending...',
           successMessage: 'Message sent successfully!',
+          errorMessage: 'Something went wrong. Please try again.',
           validation: {
             nameRequired: 'Name is required',
             emailRequired: 'Email is required',
@@ -412,7 +414,9 @@ export class LanguageService {
           message: 'Poruka',
           messagePlaceholder: 'Vaša poruka',
           send: 'Pošalji poruku',
+          sending: 'Slanje...',
           successMessage: 'Poruka uspješno poslana!',
+          errorMessage: 'Nešto je pošlo po krivu. Molimo pokušajte ponovo.',
           validation: {
             nameRequired: 'Ime je obavezno',
             emailRequired: 'Email je obavezan',

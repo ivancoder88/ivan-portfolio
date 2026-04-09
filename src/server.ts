@@ -5,7 +5,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
@@ -14,7 +14,7 @@ const app = express();
 const angularApp = new AngularNodeAppEngine();
 
 const messagesFile = join(import.meta.dirname, 'messages.json');
-
+  
 app.use(express.json());
 
 app.post('/api/contact', (req, res) => {

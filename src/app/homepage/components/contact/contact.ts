@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { email, form, FormField, required, minLength, submit } from "@angular/forms/signals";
+import { HttpClient } from '@angular/common/http';
 import { AppIcon } from '../icon/icon';
 import { SectionHeader } from '../section-header/section-header';
 import { Section } from '../../shared/components/section/section';
@@ -84,11 +85,14 @@ export interface ContactFormData {
                 }
             </div>
             <div class="flex flex-col gap-4">
-              <button type="submit" class="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0">
-                {{ lang.t().contact.form.send }}
+              <button type="submit" [disabled]="sending()" class="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none">
+                {{ sending() ? lang.t().contact.form.sending : lang.t().contact.form.send }}
               </button>
               @if (formSubmitted()) {
                 <span class="text-green-500 text-sm bg-green-100 text-center p-2 rounded">{{ lang.t().contact.form.successMessage }}</span>
+              }
+              @if (submitError()) {
+                <span class="text-red-500 text-sm bg-red-100 text-center p-2 rounded">{{ submitError() }}</span>
               }
             </div>
           </form>
@@ -100,6 +104,7 @@ export interface ContactFormData {
 })
 export class Contact {
   protected readonly lang = inject(LanguageService);
+  private readonly http = inject(HttpClient);
 
   protected readonly contactModel = signal<ContactFormData>({
     name: '',
@@ -117,26 +122,28 @@ export class Contact {
   });
 
   protected readonly formSubmitted = signal(false);
+  protected readonly sending = signal(false);
+  protected readonly submitError = signal<string | null>(null);
 
   protected sendMessage(event: SubmitEvent): void {
     event.preventDefault();
 
     submit(this.contactForm, async () => {
-      const data: ContactFormData = this.contactModel();
-      console.log('Sending message:', data);
-      
-      new Promise((resolve) => setTimeout(resolve, 2000)).then(() => {
-        this.contactModel.set({
-          name: '',
-          email: '',
-          message: '',
-        });
-        this.contactForm().reset();
-        this.formSubmitted.set(true);
+      this.sending.set(true);
+      this.submitError.set(null);
 
-        setTimeout(() => {
-          this.formSubmitted.set(false);
-        }, 2000);
+      this.http.post('/api/contact', this.contactModel()).subscribe({
+        next: () => {
+          this.contactModel.set({ name: '', email: '', message: '' });
+          this.contactForm().reset();
+          this.formSubmitted.set(true);
+          this.sending.set(false);
+          setTimeout(() => this.formSubmitted.set(false), 3000);
+        },
+        error: () => {
+          this.submitError.set(this.lang.t().contact.form.errorMessage ?? 'Something went wrong. Please try again.');
+          this.sending.set(false);
+        },
       });
     });
   }
