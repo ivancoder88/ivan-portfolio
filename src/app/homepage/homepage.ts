@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Navbar } from './components/navbar/navbar';
 import { Hero } from './components/hero/hero';
 import { Services } from './components/services/services';
-import { Works } from './components/works/works';
+import { Timeline } from './components/timeline/timeline';
 import { Resume } from './components/resume/resume';
 import { Skills } from './components/skills/skills';
-import { Testimonials } from './components/testimonials/testimonials';
+import { TechStack } from './components/tech-stack/tech-stack';
 import { Contact } from './components/contact/contact';
 import { Footer } from './components/footer/footer';
 
@@ -13,14 +13,14 @@ import { Footer } from './components/footer/footer';
   selector: 'app-homepage',
   standalone: true,
   imports: [
-    Navbar, 
-    Hero, 
-    Services, 
-    Works, 
-    Resume, 
-    Skills, 
-    Testimonials, 
-    Contact, 
+    Navbar,
+    Hero,
+    Services,
+    Timeline,
+    Resume,
+    Skills,
+    TechStack,
+    Contact,
     Footer
   ],
   template: `
@@ -30,10 +30,10 @@ import { Footer } from './components/footer/footer';
       <main>
         <app-hero />
         <app-services />
-        <app-works />
+        <app-timeline />
         <app-resume />
         <app-skills />
-        <app-testimonials />
+        <app-tech-stack />
         <app-contact />
       </main>
 

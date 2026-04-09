@@ -17,10 +17,10 @@ export class LanguageService {
       nav: {
         home: 'Home',
         services: 'Services',
-        works: 'Works',
+        works: 'Timeline',
         resume: 'Resume',
         skills: 'Skills',
-        testimonials: 'Testimonials',
+        testimonials: 'Tech Stack',
         contact: 'Contact',
         hireMe: 'Hire me'
       },
@@ -78,6 +78,93 @@ export class LanguageService {
         comingSoonTitle: 'Projects Coming Soon',
         comingSoonDescription: "I'm currently working on personal projects to showcase here. In the meantime, feel free to reach out to learn more about my professional work.",
         items: []
+      },
+      timeline: {
+        title: 'Experience Timeline',
+        present: 'Present',
+        items: [
+          {
+            year: '2024',
+            endYear: 'Present',
+            title: 'Designer / Planner I',
+            company: 'Vodoopskrba i Odvodnja d.o.o.',
+            location: 'Zagreb, Croatia',
+            type: 'engineering',
+            description: 'Working on water supply system development and monitoring. Managing smaller-scale projects through planning and design phases, preparing tender documentation, and participating in hydraulic model development.',
+            tags: ['AutoCAD', 'Project Management', 'Hydraulic Modelling', 'Tender Documentation']
+          },
+          {
+            year: '2022',
+            endYear: '2023',
+            title: 'Construction Worker',
+            company: 'Auto Iviček d.o.o.',
+            location: 'Sesvete, Croatia',
+            type: 'other',
+            description: 'Auxiliary worker on various construction projects.',
+            tags: ['Construction']
+          },
+          {
+            year: '2019',
+            endYear: '2020',
+            title: 'Software Developer',
+            company: 'Mediatoolkit d.o.o.',
+            location: 'Zagreb, Croatia',
+            type: 'software',
+            description: 'Built microservices using the NestJS framework. Applied BDD/TDD practices to maintain high code quality, used event storming for domain understanding, and worked in a Scrum team.',
+            tags: ['NestJS', 'TypeScript', 'BDD/TDD', 'Event Storming', 'Scrum', 'Microservices']
+          },
+          {
+            year: '2018',
+            endYear: '2019',
+            title: 'Front End Developer',
+            company: 'Point Jupiter',
+            location: 'Zagreb, Croatia',
+            type: 'software',
+            description: 'Created reusable React components, solved architectural challenges, integrated new features, and maintained the existing codebase. Collaborated closely with backend developers, UI/UX designers, and third-party clients.',
+            tags: ['React', 'JavaScript', 'UI/UX Collaboration', 'Architecture']
+          },
+          {
+            year: '2015',
+            endYear: '2018',
+            title: 'Business Manager',
+            company: 'Pansion Mario / Auto Iviček d.o.o.',
+            location: 'Pag, Croatia',
+            type: 'other',
+            description: 'Managed guest reservations and transport, oversaw restaurant supplies, and coordinated kitchen and cleaning staff.',
+            tags: ['Management', 'Operations', 'Coordination']
+          },
+          {
+            year: '2013',
+            endYear: '2015',
+            title: 'Specialist — Legalization & Energy Certification',
+            company: 'Gradea d.o.o. / Geoprojekt d.o.o.',
+            location: 'Zagreb, Croatia',
+            type: 'engineering',
+            description: 'Performed building measurements, produced architectural drawings in AutoCAD, and prepared technical documentation and reports.',
+            tags: ['AutoCAD', 'Technical Documentation', 'Energy Certification']
+          },
+        ]
+      },
+      techStack: {
+        title: 'Tech Stack',
+        categories: [
+          {
+            name: 'Frontend',
+            items: ['Angular', 'React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'HTML / CSS']
+          },
+          {
+            name: 'Backend',
+            items: ['NestJS', 'Node.js', 'REST APIs', 'Microservices']
+          },
+          {
+            name: 'Practices',
+            items: ['BDD / TDD', 'Event Storming', 'Scrum / Agile', 'Code Review']
+          },
+          {
+            name: 'Tools & Infra',
+            items: ['Docker', 'Git', 'AutoCAD', 'Linux']
+          }
+        ]
       },
       skills: {
         title: 'My Skills',
@@ -141,10 +228,10 @@ export class LanguageService {
       nav: {
         home: 'Početna',
         services: 'Usluge',
-        works: 'Radovi',
+        works: 'Vremenski slijed',
         resume: 'Životopis',
         skills: 'Vještine',
-        testimonials: 'Recenzije',
+        testimonials: 'Tech Stack',
         contact: 'Kontakt',
         hireMe: 'Zaposli me'
       },
@@ -202,6 +289,93 @@ export class LanguageService {
         comingSoonTitle: 'Projekti uskoro',
         comingSoonDescription: 'Trenutno radim na osobnim projektima koje ću ovdje prikazati. U međuvremenu, slobodno me kontaktirajte za više informacija o mom profesionalnom radu.',
         items: []
+      },
+      timeline: {
+        title: 'Vremenski slijed iskustva',
+        present: 'Danas',
+        items: [
+          {
+            year: '2024',
+            endYear: 'Danas',
+            title: 'Projektant I',
+            company: 'Vodoopskrba i Odvodnja d.o.o.',
+            location: 'Zagreb, Hrvatska',
+            type: 'engineering',
+            description: 'Rad na praćenju stanja i razvoju vodoopskrbnog sustava. Upravljanje projektima manje složenosti u fazi planiranja i projektiranja, izrada natječajne dokumentacije te sudjelovanje u razvoju hidrauličkog modela.',
+            tags: ['AutoCAD', 'Upravljanje projektima', 'Hidrauličko modeliranje', 'Natječajna dokumentacija']
+          },
+          {
+            year: '2022',
+            endYear: '2023',
+            title: 'Građevinski radnik',
+            company: 'Auto Iviček d.o.o.',
+            location: 'Sesvete, Hrvatska',
+            type: 'other',
+            description: 'Pomoćni radnik na raznim građevinskim radovima.',
+            tags: ['Građevinarstvo']
+          },
+          {
+            year: '2019',
+            endYear: '2020',
+            title: 'Softverski programer',
+            company: 'Mediatoolkit d.o.o.',
+            location: 'Zagreb, Hrvatska',
+            type: 'software',
+            description: 'Izgradnja mikroservisa koristeći NestJS framework. Primjena BDD/TDD pristupa za visoku kvalitetu koda, korištenje event storming tehnike za razumijevanje domene te rad u Scrum timu.',
+            tags: ['NestJS', 'TypeScript', 'BDD/TDD', 'Event Storming', 'Scrum', 'Mikroservisi']
+          },
+          {
+            year: '2018',
+            endYear: '2019',
+            title: 'Frontend programer',
+            company: 'Point Jupiter',
+            location: 'Zagreb, Hrvatska',
+            type: 'software',
+            description: 'Izrada višekratno upotrebljivih React komponenti, rješavanje arhitekturalnih izazova, integracija novih značajki i održavanje baze koda. Uska suradnja s backend programerima, UI/UX dizajnerima i klijentima.',
+            tags: ['React', 'JavaScript', 'UI/UX suradnja', 'Arhitektura']
+          },
+          {
+            year: '2015',
+            endYear: '2018',
+            title: 'Poslovni menadžer',
+            company: 'Pansion Mario / Auto Iviček d.o.o.',
+            location: 'Pag, Hrvatska',
+            type: 'other',
+            description: 'Upravljanje rezervacijama i transportom gostiju, nabava potrepština restorana te koordinacija osoblja.',
+            tags: ['Menadžment', 'Operacije', 'Koordinacija']
+          },
+          {
+            year: '2013',
+            endYear: '2015',
+            title: 'Stručni suradnik — Legalizacija i energetsko certificiranje',
+            company: 'Gradea d.o.o. / Geoprojekt d.o.o.',
+            location: 'Zagreb, Hrvatska',
+            type: 'engineering',
+            description: 'Izvođenje građevinskih mjerenja, izrada arhitektonskih crteža u AutoCAD-u te priprema tehničke dokumentacije i elaborata.',
+            tags: ['AutoCAD', 'Tehnička dokumentacija', 'Energetsko certificiranje']
+          },
+        ]
+      },
+      techStack: {
+        title: 'Tech Stack',
+        categories: [
+          {
+            name: 'Frontend',
+            items: ['Angular', 'React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'HTML / CSS']
+          },
+          {
+            name: 'Backend',
+            items: ['NestJS', 'Node.js', 'REST API-ji', 'Mikroservisi']
+          },
+          {
+            name: 'Prakse',
+            items: ['BDD / TDD', 'Event Storming', 'Scrum / Agile', 'Code Review']
+          },
+          {
+            name: 'Alati i infrastruktura',
+            items: ['Docker', 'Git', 'AutoCAD', 'Linux']
+          }
+        ]
       },
       skills: {
         title: 'Moje vještine',
