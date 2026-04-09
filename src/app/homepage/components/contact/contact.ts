@@ -35,7 +35,7 @@ export interface ContactFormData {
               </div>
               <div>
                 <span class="block text-sm text-primary font-bold uppercase tracking-wider">{{ lang.t().contact.emailMe }}</span>
-                <a href="mailto:ivan@example.com" class="text-xl font-bold text-slate-900 dark:text-white hover:underline">ivan@example.com</a>
+                <a [href]="'mailto:' + lang.t().contact.email" class="text-xl font-bold text-slate-900 dark:text-white hover:underline">{{ lang.t().contact.email }}</a>
               </div>
             </div>
 
@@ -45,7 +45,7 @@ export interface ContactFormData {
               </div>
               <div>
                 <span class="block text-sm text-primary font-bold uppercase tracking-wider">{{ lang.t().contact.callMe }}</span>
-                <a href="tel:+123456789" class="text-xl font-bold text-slate-900 dark:text-white hover:underline">+123 456 789</a>
+                <a [href]="'tel:' + lang.t().contact.phone" class="text-xl font-bold text-slate-900 dark:text-white hover:underline">{{ lang.t().contact.phone }}</a>
               </div>
             </div>
           </div>

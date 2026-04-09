@@ -13,7 +13,7 @@ export class LanguageService {
 
   private translations = {
     en: {
-      name: 'Ivan Ivicek',
+      name: 'Ivan Iviček',
       nav: {
         home: 'Home',
         services: 'Services',
@@ -25,35 +25,35 @@ export class LanguageService {
         hireMe: 'Hire me'
       },
       hero: {
-        greeting: 'I am Ivan Ivicek',
+        greeting: 'I am Ivan Iviček',
         role: 'Software Developer',
-        bio: 'Seamlessly blending the worlds of code and creativity as a Software developer creating captivating digital experiences',
+        bio: 'Civil engineer turned software developer — I bring a structured, analytical mindset to building modern web applications with NestJS, React, and Angular.',
         downloadCv: 'Download CV',
         stats: {
-          experience: '5+ Years of experience',
-          projects: '90+ Projects Completed',
-          clients: '105+ Happy Clients',
-          awards: '15+ Honors and awards'
+          experience: '6+ Years of experience',
+          projects: '2 Software roles',
+          clients: '2 Tech stacks',
+          awards: 'MSc Civil Engineering'
         }
       },
       services: {
-        title: 'My Quality Services',
+        title: 'What I Do',
         readMore: 'Read More',
         items: [
           {
-            title: 'Web Development',
-            description: 'Building modern, responsive, and high-performance web applications using the latest technologies.',
+            title: 'Frontend Development',
+            description: 'Building reusable, maintainable UI components with React and Angular. Focus on clean architecture and long-term scalability.',
             icon: 'web'
           },
           {
-            title: 'UI/UX Design',
-            description: 'Creating intuitive and visually appealing user interfaces that provide seamless digital experiences.',
-            icon: 'uiux'
+            title: 'Backend & API Development',
+            description: 'Designing and building microservices with NestJS. Experienced with BDD/TDD, event storming, and Scrum-based delivery.',
+            icon: 'app'
           },
           {
-            title: 'App Development',
-            description: 'Developing native and cross-platform mobile applications with focus on performance and usability.',
-            icon: 'app'
+            title: 'Technical Consulting',
+            description: 'Bridging technical and domain knowledge — from software architecture to project planning, with a background in civil engineering project management.',
+            icon: 'uiux'
           }
         ]
       },
@@ -62,51 +62,50 @@ export class LanguageService {
         experience: 'Experience',
         education: 'Education',
         experienceItems: [
-          { year: '2022 - Present', title: 'Senior Software Developer', place: 'Tech Solutions Inc.' },
-          { year: '2020 - 2022', title: 'Full Stack Developer', place: 'Creative Digital Agency' },
-          { year: '2018 - 2020', title: 'Junior Developer', place: 'Startup Hub' },
+          { year: '2024 - Present', title: 'Designer / Planner I', place: 'Vodoopskrba i Odvodnja d.o.o. — Zagreb, Croatia' },
+          { year: '2019 - 2020', title: 'Software Developer', place: 'Mediatoolkit d.o.o. — Zagreb, Croatia' },
+          { year: '2018 - 2019', title: 'Front End Developer', place: 'Point Jupiter — Zagreb, Croatia' },
+          { year: '2022 - 2023', title: 'Construction Worker', place: 'Auto Iviček d.o.o. — Sesvete, Croatia' },
+          { year: '2015 - 2018', title: 'Business Manager', place: 'Pansion Mario / Auto Iviček d.o.o. — Pag, Croatia' },
+          { year: '2013 - 2015', title: 'Specialist — Legalization & Energy Certification', place: 'Gradea d.o.o. / Geoprojekt d.o.o. — Zagreb, Croatia' },
         ],
         educationItems: [
-          { year: '2014 - 2018', title: 'Bachelor of Computer Science', place: 'University of Zagreb' },
-          { year: '2010 - 2014', title: 'High School Diploma', place: 'Informatics High School' },
+          { year: '2011 - 2013', title: 'MSc Civil Engineering (Mag. Ing. Aedif)', place: 'Faculty of Civil Engineering — Zagreb, Croatia' },
         ]
       },
       works: {
         title: 'My Works',
-        items: [
-          { title: 'Digital Agency Website', category: 'Web Development' },
-          { title: 'E-commerce Mobile App', category: 'App Design' },
-          { title: 'Personal Brand Identity', category: 'Branding' },
-          { title: 'SaaS Dashboard', category: 'UI/UX Design' },
-        ]
+        comingSoonTitle: 'Projects Coming Soon',
+        comingSoonDescription: "I'm currently working on personal projects to showcase here. In the meantime, feel free to reach out to learn more about my professional work.",
+        items: []
       },
       skills: {
         title: 'My Skills',
         items: [
-          { name: 'Angular', percentage: 95 },
-          { name: 'TypeScript', percentage: 90 },
-          { name: 'Tailwind CSS', percentage: 85 },
-          { name: 'Node.js', percentage: 80 },
-          { name: 'PostgreSQL', percentage: 75 },
-          { name: 'Docker', percentage: 70 },
-          { name: 'AWS', percentage: 65 },
-          { name: 'Figma', percentage: 60 },
+          { name: 'Angular', percentage: 90 },
+          { name: 'React', percentage: 80 },
+          { name: 'TypeScript', percentage: 85 },
+          { name: 'NestJS', percentage: 80 },
+          { name: 'Node.js', percentage: 75 },
+          { name: 'BDD / TDD', percentage: 75 },
+          { name: 'Docker', percentage: 65 },
+          { name: 'AutoCAD', percentage: 70 },
         ]
       },
       testimonials: {
-        title: 'What Clients Say',
-        items: [
-          { name: 'John Doe', role: 'CEO at Tech Corp', content: 'Ivan is an exceptional developer who transformed our vision into a stunning digital reality. His attention to detail and technical expertise are unmatched.' },
-          { name: 'Jane Smith', role: 'Marketing Manager', content: 'Working with Ivan was a breeze. He delivered our project on time and exceeded our expectations in every way. Highly recommended!' },
-          { name: 'Michael Brown', role: 'Entrepreneur', content: 'The best software developer I have ever worked with. Smart, creative, and very professional. The results speak for themselves.' },
-        ]
+        title: 'Testimonials',
+        comingSoonTitle: 'Testimonials Coming Soon',
+        comingSoonDescription: "I haven't collected testimonials yet — but I'd love to hear from anyone I've worked with. Feel free to get in touch.",
+        items: []
       },
       contact: {
         title: 'Get In Touch',
-        heading: "Let's talk about your project",
-        description: "I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.",
+        heading: "Let's talk",
+        description: "I'm open to new opportunities, freelance projects, or just a good conversation about software and engineering.",
         emailMe: 'Email Me',
         callMe: 'Call Me',
+        email: 'ivicek.ivan@gmail.com',
+        phone: '+385 099 585 9138',
         form: {
           name: 'Name',
           namePlaceholder: 'Your Name',
@@ -138,7 +137,7 @@ export class LanguageService {
       }
     },
     hr: {
-      name: 'Ivan Ivicek',
+      name: 'Ivan Iviček',
       nav: {
         home: 'Početna',
         services: 'Usluge',
@@ -150,35 +149,35 @@ export class LanguageService {
         hireMe: 'Zaposli me'
       },
       hero: {
-        greeting: 'Ja sam Ivan Ivicek',
-        role: 'Softverski Inženjer',
-        bio: 'Besprijekorno spajam svjetove koda i kreativnosti kao softverski programer stvarajući zadivljujuća digitalna iskustva',
+        greeting: 'Ja sam Ivan Iviček',
+        role: 'Softverski Programer',
+        bio: 'Građevinski inženjer koji je prešao u softverski razvoj — analitičan pristup i strukturirano razmišljanje primjenjujem u izgradnji modernih web aplikacija s NestJS-om, Reactom i Angularom.',
         downloadCv: 'Preuzmi životopis',
         stats: {
-          experience: '5+ Godina iskustva',
-          projects: '90+ Završenih projekata',
-          clients: '105+ Sretnih klijenata',
-          awards: '15+ Priznanja i nagrada'
+          experience: '6+ Godina iskustva',
+          projects: '2 Softverske uloge',
+          clients: '2 Tech stacka',
+          awards: 'Mag. Ing. Građevinarstva'
         }
       },
       services: {
-        title: 'Moje kvalitetne usluge',
+        title: 'Što radim',
         readMore: 'Saznaj više',
         items: [
           {
-            title: 'Web Razvoj',
-            description: 'Izrada modernih, responzivnih i visokoučinkovitih web aplikacija koristeći najnovije tehnologije.',
+            title: 'Frontend razvoj',
+            description: 'Izrada višekratno upotrebljivih i održivih UI komponenti u Reactu i Angularu. Fokus na čistoj arhitekturi i dugoročnoj skalabilnosti.',
             icon: 'web'
           },
           {
-            title: 'UI/UX Dizajn',
-            description: 'Stvaranje intuitivnih i vizualno privlačnih korisničkih sučelja koja pružaju besprijekorno digitalno iskustvo.',
-            icon: 'uiux'
+            title: 'Backend i API razvoj',
+            description: 'Dizajn i izgradnja mikroservisa s NestJS-om. Iskustvo s BDD/TDD pristupom, event stormingom i Scrum metodologijom.',
+            icon: 'app'
           },
           {
-            title: 'Razvoj Aplikacija',
-            description: 'Razvoj nativnih i višeplatformskih mobilnih aplikacija s fokusom na performanse i upotrebljivost.',
-            icon: 'app'
+            title: 'Tehničko savjetovanje',
+            description: 'Premošćivanje tehničkog i domenskog znanja — od softverske arhitekture do planiranja projekata, uz pozadinu u upravljanju građevinskim projektima.',
+            icon: 'uiux'
           }
         ]
       },
@@ -187,51 +186,50 @@ export class LanguageService {
         experience: 'Iskustvo',
         education: 'Obrazovanje',
         experienceItems: [
-          { year: '2022 - Danas', title: 'Senior Softverski Inženjer', place: 'Tech Solutions Inc.' },
-          { year: '2020 - 2022', title: 'Full Stack Programer', place: 'Creative Digital Agency' },
-          { year: '2018 - 2020', title: 'Junior Programer', place: 'Startup Hub' },
+          { year: '2024 - Danas', title: 'Projektant I', place: 'Vodoopskrba i Odvodnja d.o.o. — Zagreb, Hrvatska' },
+          { year: '2019 - 2020', title: 'Softverski programer', place: 'Mediatoolkit d.o.o. — Zagreb, Hrvatska' },
+          { year: '2018 - 2019', title: 'Frontend programer', place: 'Point Jupiter — Zagreb, Hrvatska' },
+          { year: '2022 - 2023', title: 'Građevinski radnik', place: 'Auto Iviček d.o.o. — Sesvete, Hrvatska' },
+          { year: '2015 - 2018', title: 'Poslovni menadžer', place: 'Pansion Mario / Auto Iviček d.o.o. — Pag, Hrvatska' },
+          { year: '2013 - 2015', title: 'Stručni suradnik — Legalizacija i energetsko certificiranje', place: 'Gradea d.o.o. / Geoprojekt d.o.o. — Zagreb, Hrvatska' },
         ],
         educationItems: [
-          { year: '2014 - 2018', title: 'Prvostupnik računarstva', place: 'Sveučilište u Zagrebu' },
-          { year: '2010 - 2014', title: 'Gimnazijska diploma', place: 'Informatička gimnazija' },
+          { year: '2011 - 2013', title: 'Magistar inženjer građevinarstva (Mag. Ing. Aedif)', place: 'Građevinski fakultet — Zagreb, Hrvatska' },
         ]
       },
       works: {
         title: 'Moji radovi',
-        items: [
-          { title: 'Web stranica digitalne agencije', category: 'Web razvoj' },
-          { title: 'E-commerce mobilna aplikacija', category: 'Dizajn aplikacije' },
-          { title: 'Identitet osobnog brenda', category: 'Brendiranje' },
-          { title: 'SaaS nadzorna ploča', category: 'UI/UX dizajn' },
-        ]
+        comingSoonTitle: 'Projekti uskoro',
+        comingSoonDescription: 'Trenutno radim na osobnim projektima koje ću ovdje prikazati. U međuvremenu, slobodno me kontaktirajte za više informacija o mom profesionalnom radu.',
+        items: []
       },
       skills: {
         title: 'Moje vještine',
         items: [
-          { name: 'Angular', percentage: 95 },
-          { name: 'TypeScript', percentage: 90 },
-          { name: 'Tailwind CSS', percentage: 85 },
-          { name: 'Node.js', percentage: 80 },
-          { name: 'PostgreSQL', percentage: 75 },
-          { name: 'Docker', percentage: 70 },
-          { name: 'AWS', percentage: 65 },
-          { name: 'Figma', percentage: 60 },
+          { name: 'Angular', percentage: 90 },
+          { name: 'React', percentage: 80 },
+          { name: 'TypeScript', percentage: 85 },
+          { name: 'NestJS', percentage: 80 },
+          { name: 'Node.js', percentage: 75 },
+          { name: 'BDD / TDD', percentage: 75 },
+          { name: 'Docker', percentage: 65 },
+          { name: 'AutoCAD', percentage: 70 },
         ]
       },
       testimonials: {
-        title: 'Što klijenti kažu',
-        items: [
-          { name: 'John Doe', role: 'Direktor u Tech Corp', content: 'Ivan je izuzetan programer koji je našu viziju pretvorio u zadivljujuću digitalnu stvarnost. Njegova pažnja posvećena detaljima i tehnička stručnost su bez premca.' },
-          { name: 'Jane Smith', role: 'Voditelj marketinga', content: 'Rad s Ivanom bio je užitak. Isporučio je naš projekt na vrijeme i nadmašio naša očekivanja u svakom pogledu. Toplo preporučujem!' },
-          { name: 'Michael Brown', role: 'Poduzetnik', content: 'Najbolji softverski programer s kojim sam ikada radio. Pametan, kreativan i vrlo profesionalan. Rezultati govore sami za sebe.' },
-        ]
+        title: 'Recenzije',
+        comingSoonTitle: 'Recenzije uskoro',
+        comingSoonDescription: 'Još nisam prikupio recenzije — ali rado bih čuo od svakoga s kim sam surađivao. Slobodno me kontaktirajte.',
+        items: []
       },
       contact: {
         title: 'Kontaktirajte me',
-        heading: "Razgovarajmo o vašem projektu",
-        description: "Uvijek sam otvoren za raspravu o novim projektima, kreativnim idejama ili prilikama da budem dio vaših vizija.",
+        heading: 'Razgovarajmo',
+        description: 'Otvoren sam za nove prilike, freelance projekte ili jednostavno dobar razgovor o softveru i inženjerstvu.',
         emailMe: 'Pošaljite email',
         callMe: 'Nazovite me',
+        email: 'ivicek.ivan@gmail.com',
+        phone: '+385 099 585 9138',
         form: {
           name: 'Ime',
           namePlaceholder: 'Vaše ime',
