@@ -1,17 +1,60 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { min } from 'rxjs';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 export type Language = 'en' | 'hr';
 
-@Injectable({
-  providedIn: 'root'
-})
+export type TimelineItemType = 'software' | 'engineering' | 'other';
+
+export interface TimelineItem {
+  year: string;
+  endYear: string;
+  title: string;
+  company: string;
+  location: string;
+  type: TimelineItemType;
+  description: string;
+  tags: string[];
+}
+
+export interface Project { title: string; category: string; }
+export interface Skill { name: string; percentage: number; }
+export interface ResumeItem { year: string; title: string; place: string; }
+export interface ServiceItem { title: string; description: string; icon: string; }
+export interface TechCategory { name: string; items: string[]; }
+
+@Injectable({ providedIn: 'root' })
 export class LanguageService {
-  private language = signal<Language>('en');
+  private readonly http = inject(HttpClient);
+  private readonly language = signal<Language>('en');
+  private readonly _translations = signal(DEFAULT_TRANSLATIONS);
 
   public readonly currentLanguage = this.language.asReadonly();
+  public readonly t = computed(() => this._translations()[this.language()]);
 
-  private translations = {
+  constructor() {
+    this.http.get<typeof DEFAULT_TRANSLATIONS>('/api/content').subscribe({
+      next: (data) => { if (data) this._translations.set(data); }
+    });
+  }
+
+  public setTranslations(data: typeof DEFAULT_TRANSLATIONS): void {
+    this._translations.set(data);
+  }
+
+  public getCurrentTranslations(): typeof DEFAULT_TRANSLATIONS {
+    return JSON.parse(JSON.stringify(this._translations()));
+  }
+
+  public setLanguage(lang: Language): void {
+    this.language.set(lang);
+  }
+
+  public toggleLanguage(): void {
+    this.language.update(l => l === 'en' ? 'hr' : 'en');
+  }
+}
+
+const DEFAULT_TRANSLATIONS = {
     en: {
       name: 'Ivan Iviček',
       nav: {
@@ -438,15 +481,4 @@ export class LanguageService {
         }
       }
     }
-  };
-
-  public readonly t = computed(() => this.translations[this.language()]);
-
-  public setLanguage(lang: Language): void {
-    this.language.set(lang);
-  }
-
-  public toggleLanguage(): void {
-    this.language.update(l => l === 'en' ? 'hr' : 'en');
-  }
-}
+ };

@@ -15,6 +15,10 @@ export const dashboardRoutes: Routes = [
         path: 'messages',
         loadComponent: () => import('./messages/messages').then(m => m.Messages),
       },
+      {
+        path: 'page-customization',
+        loadComponent: () => import('./page-customization/page-customization').then(m => m.PageCustomization),
+      },
     ],
   },
   {

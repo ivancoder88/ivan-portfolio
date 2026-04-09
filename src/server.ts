@@ -18,6 +18,7 @@ const angularApp = new AngularNodeAppEngine();
 const messagesFile = join(dataDir, 'messages.json');
 const usersFile = join(dataDir, 'users.json');
 const sessionsFile = join(dataDir, 'sessions.json');
+const contentFile = join(dataDir, 'content.json');
 
 mkdirSync(dataDir, { recursive: true });
 
@@ -114,6 +115,21 @@ app.post('/api/contact', (req, res) => {
 app.get('/api/messages', requireAuth, (_req, res) => {
   const messages = readJson<unknown[]>(messagesFile, []);
   res.json(messages.reverse());
+});
+
+// --- Content endpoints ---
+
+app.get('/api/content', (_req, res) => {
+  res.json(readJson<unknown>(contentFile, null));
+});
+
+app.put('/api/content', requireAuth, (req, res) => {
+  if (!req.body || typeof req.body !== 'object') {
+    res.status(400).json({ error: 'Invalid body' });
+    return;
+  }
+  writeJson(contentFile, req.body);
+  res.json({ success: true });
 });
 
 /**
