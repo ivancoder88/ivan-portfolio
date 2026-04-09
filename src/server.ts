@@ -5,21 +5,93 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
-import { join, dirname } from 'node:path';
+import { join } from 'node:path';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { createHash, randomBytes } from 'node:crypto';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
+const dataDir = import.meta.dirname;
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-const messagesFile = join(import.meta.dirname, 'messages.json');
+const messagesFile = join(dataDir, 'messages.json');
+const usersFile = join(dataDir, 'users.json');
+const sessionsFile = join(dataDir, 'sessions.json');
 
-if (!existsSync(messagesFile)) {
-  mkdirSync(import.meta.dirname, { recursive: true });
-}
-  
+mkdirSync(dataDir, { recursive: true });
+
 app.use(express.json());
+
+// --- Auth helpers ---
+
+interface User { username: string; passwordHash: string; }
+interface Session { token: string; username: string; createdAt: string; }
+
+function readJson<T>(file: string, fallback: T): T {
+  return existsSync(file) ? JSON.parse(readFileSync(file, 'utf-8')) : fallback;
+}
+
+function writeJson(file: string, data: unknown): void {
+  writeFileSync(file, JSON.stringify(data, null, 2));
+}
+
+function hashPassword(password: string): string {
+  return createHash('sha256').update(password).digest('hex');
+}
+
+function requireAuth(req: express.Request, res: express.Response, next: express.NextFunction): void {
+  const token = req.headers['authorization']?.replace('Bearer ', '');
+  if (!token) { res.status(401).json({ error: 'Unauthorized' }); return; }
+  const sessions = readJson<Session[]>(sessionsFile, []);
+  if (!sessions.find(s => s.token === token)) { res.status(401).json({ error: 'Invalid session' }); return; }
+  next();
+}
+
+// --- Auth endpoints ---
+
+app.post('/api/auth/register', (req, res) => {
+  const { username, password } = req.body ?? {};
+  if (!username || !password) { res.status(400).json({ error: 'username and password are required' }); return; }
+
+  const users = readJson<User[]>(usersFile, []);
+  if (users.find(u => u.username === username)) { res.status(409).json({ error: 'Username already exists' }); return; }
+
+  users.push({ username, passwordHash: hashPassword(password) });
+  writeJson(usersFile, users);
+  res.status(201).json({ success: true });
+});
+
+app.post('/api/auth/login', (req, res) => {
+  const { username, password } = req.body ?? {};
+  if (!username || !password) { res.status(400).json({ error: 'username and password are required' }); return; }
+
+  const users = readJson<User[]>(usersFile, []);
+  const user = users.find(u => u.username === username && u.passwordHash === hashPassword(password));
+  if (!user) { res.status(401).json({ error: 'Invalid credentials' }); return; }
+
+  const token = randomBytes(32).toString('hex');
+  const sessions = readJson<Session[]>(sessionsFile, []);
+  sessions.push({ token, username, createdAt: new Date().toISOString() });
+  writeJson(sessionsFile, sessions);
+  res.json({ token, username });
+});
+
+app.post('/api/auth/logout', requireAuth, (req, res) => {
+  const token = req.headers['authorization']?.replace('Bearer ', '');
+  const sessions = readJson<Session[]>(sessionsFile, []);
+  writeJson(sessionsFile, sessions.filter(s => s.token !== token));
+  res.json({ success: true });
+});
+
+app.get('/api/auth/me', requireAuth, (req, res) => {
+  const token = req.headers['authorization']?.replace('Bearer ', '');
+  const sessions = readJson<Session[]>(sessionsFile, []);
+  const session = sessions.find(s => s.token === token);
+  res.json({ username: session?.username });
+});
+
+// --- Contact endpoint ---
 
 app.post('/api/contact', (req, res) => {
   const { name, email, message } = req.body ?? {};
@@ -37,6 +109,11 @@ app.post('/api/contact', (req, res) => {
   writeFileSync(messagesFile, JSON.stringify(messages, null, 2));
 
   res.status(201).json({ success: true });
+});
+
+app.get('/api/messages', requireAuth, (_req, res) => {
+  const messages = readJson<unknown[]>(messagesFile, []);
+  res.json(messages.reverse());
 });
 
 /**
