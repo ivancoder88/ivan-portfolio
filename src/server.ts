@@ -6,7 +6,7 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join, dirname } from 'node:path';
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -14,6 +14,10 @@ const app = express();
 const angularApp = new AngularNodeAppEngine();
 
 const messagesFile = join(import.meta.dirname, 'messages.json');
+
+if (!existsSync(messagesFile)) {
+  mkdirSync(import.meta.dirname, { recursive: true });
+}
   
 app.use(express.json());
 
