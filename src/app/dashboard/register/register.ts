@@ -5,7 +5,6 @@ import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
   imports: [FormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

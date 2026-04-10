@@ -21,7 +21,6 @@ const CATEGORY_ICON_MAP: Record<string, IconName> = {
 
 @Component({
   selector: 'app-tech-stack',
-  standalone: true,
   imports: [SectionHeader, Section, RevealDirective, AppIcon],
   template: `
     <app-section id="testimonials">

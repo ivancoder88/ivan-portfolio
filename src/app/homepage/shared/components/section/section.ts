@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-section',
-  standalone: true,
   template: `
     <section [id]="id()" [class]="sectionClasses()">
       <div class="max-w-7xl mx-auto">

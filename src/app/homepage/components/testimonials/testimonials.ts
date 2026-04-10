@@ -12,7 +12,6 @@ interface Testimonial {
 
 @Component({
   selector: 'app-testimonials',
-  standalone: true,
   imports: [SectionHeader, Section, RevealDirective],
   template: `
     <app-section id="testimonials" variant="slate">

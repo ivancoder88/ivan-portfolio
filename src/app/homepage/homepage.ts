@@ -11,7 +11,6 @@ import { Footer } from './components/footer/footer';
 
 @Component({
   selector: 'app-homepage',
-  standalone: true,
   imports: [
     Navbar,
     Hero,

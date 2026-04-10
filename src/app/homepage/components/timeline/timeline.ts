@@ -3,6 +3,7 @@ import { SectionHeader } from '../section-header/section-header';
 import { Section } from '../../shared/components/section/section';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
 import { LanguageService } from '../../services/language.service';
+import { TimelineItemCard } from './timeline-item-card';
 
 interface TimelineItem {
   year: string;
@@ -10,15 +11,22 @@ interface TimelineItem {
   title: string;
   company: string;
   location: string;
-  type: 'software' | 'engineering' | 'other';
+  type: string;
   description: string;
   tags: string[];
 }
 
+type FilterValue = 'all' | 'software' | 'engineering' | 'other';
+
+const DOT_COLOR: Record<string, string> = {
+  software: 'bg-primary',
+  engineering: 'bg-emerald-500',
+  other: 'bg-slate-400',
+};
+
 @Component({
   selector: 'app-timeline',
-  standalone: true,
-  imports: [SectionHeader, Section, RevealDirective],
+  imports: [SectionHeader, Section, RevealDirective, TimelineItemCard],
   template: `
     <app-section id="works" variant="slate">
       <app-section-header [title]="lang.t().timeline.title" />
@@ -39,7 +47,6 @@ interface TimelineItem {
 
       <!-- Timeline -->
       <div class="relative">
-        <!-- Vertical line -->
         <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-700 md:-translate-x-px"></div>
 
         <div class="space-y-10">
@@ -49,13 +56,13 @@ interface TimelineItem {
               [style.transition-delay]="i * 80 + 'ms'"
               class="relative grid md:grid-cols-2 gap-6 md:gap-12"
             >
-              <!-- Dot on the line -->
+              <!-- Dot -->
               <div
-                [class]="dotClass(item.type)"
+                [class]="dotColor(item.type)"
                 class="absolute left-4 md:left-1/2 top-6 w-4 h-4 rounded-full border-2 border-white dark:border-slate-900 -translate-x-1/2 z-10 shadow"
               ></div>
 
-              <!-- Year badge — left side on desktop for even, right for odd -->
+              <!-- Year + tags -->
               <div [class]="isEven ? 'md:text-right md:pr-12 pl-12 md:pl-0' : 'md:order-last md:pl-12 pl-12'">
                 <span class="inline-block text-xs font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-3">
                   {{ item.year }} — {{ item.endYear }}
@@ -69,19 +76,15 @@ interface TimelineItem {
                 </div>
               </div>
 
-              <!-- Card — right side on desktop for even, left for odd -->
+              <!-- Card -->
               <div [class]="isEven ? 'pl-12 md:pl-12' : 'pl-12 md:pr-12 md:order-first'">
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                  <div class="flex items-start gap-3 mb-3">
-                    <div [class]="badgeClass(item.type)" class="w-2 h-2 rounded-full mt-2 shrink-0"></div>
-                    <div>
-                      <h3 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">{{ item.title }}</h3>
-                      <p class="text-primary font-semibold text-sm">{{ item.company }}</p>
-                      <p class="text-slate-400 text-xs mt-0.5">{{ item.location }}</p>
-                    </div>
-                  </div>
-                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{{ item.description }}</p>
-                </div>
+                <app-timeline-item-card
+                  [title]="item.title"
+                  [company]="item.company"
+                  [location]="item.location"
+                  [description]="item.description"
+                  [type]="item.type"
+                />
               </div>
             </div>
           }
@@ -93,13 +96,13 @@ interface TimelineItem {
 })
 export class Timeline {
   protected readonly lang = inject(LanguageService);
-  protected readonly activeFilter = signal<'all' | 'software' | 'engineering' | 'other'>('all');
+  protected readonly activeFilter = signal<FilterValue>('all');
 
-  protected readonly filters = [
-    { label: 'All', value: 'all' as const },
-    { label: 'Software', value: 'software' as const },
-    { label: 'Engineering', value: 'engineering' as const },
-    { label: 'Other', value: 'other' as const },
+  protected readonly filters: { label: string; value: FilterValue }[] = [
+    { label: 'All', value: 'all' },
+    { label: 'Software', value: 'software' },
+    { label: 'Engineering', value: 'engineering' },
+    { label: 'Other', value: 'other' },
   ];
 
   protected readonly filteredItems = computed<TimelineItem[]>(() => {
@@ -108,21 +111,7 @@ export class Timeline {
     return filter === 'all' ? items : items.filter(i => i.type === filter);
   });
 
-  protected dotClass(type: string): string {
-    const map: Record<string, string> = {
-      software: 'bg-primary',
-      engineering: 'bg-emerald-500',
-      other: 'bg-slate-400',
-    };
-    return map[type] ?? 'bg-slate-400';
-  }
-
-  protected badgeClass(type: string): string {
-    const map: Record<string, string> = {
-      software: 'bg-primary',
-      engineering: 'bg-emerald-500',
-      other: 'bg-slate-400',
-    };
-    return map[type] ?? 'bg-slate-400';
+  protected dotColor(type: string): string {
+    return DOT_COLOR[type] ?? 'bg-slate-400';
   }
 }

@@ -12,7 +12,6 @@ interface SocialLink {
 
 @Component({
   selector: 'app-hero',
-  standalone: true,
   imports: [AppIcon, Section, RevealDirective],
   template: `
     <app-section id="home" customClasses="pt-12 min-h-[calc(100vh-80px)] flex flex-col justify-center">
@@ -47,7 +46,7 @@ interface SocialLink {
           </div>
         </div>
         <div class="relative order-1 lg:order-2 flex justify-center" appReveal>
-          <div class="relative w-80 h-96 md:w-[30rem] md:h-[38rem]">
+          <div class="relative w-80 h-96 md:w-120 md:h-152">
             <div class="absolute inset-4 overflow-hidden rounded-3xl shadow-2xl transform rotate-6 hover:rotate-0 transition-transform duration-500 bg-slate-200 dark:bg-slate-800">
                <div class="w-full h-full flex items-center justify-center text-slate-400 dark:text-slate-600">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-24 h-24">

@@ -4,7 +4,6 @@ export type IconName = 'x' | 'instagram' | 'linkedin' | 'facebook' | 'web' | 'ui
 
 @Component({
   selector: 'app-icon',
-  standalone: true,
   template: `
     @switch (name()) {
       @case ('x') {

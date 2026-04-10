@@ -3,7 +3,6 @@ import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-section-header',
-  standalone: true,
   imports: [RevealDirective],
   template: `
     <div class="text-center mb-16" appReveal>

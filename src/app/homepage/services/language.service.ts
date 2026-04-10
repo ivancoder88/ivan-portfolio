@@ -11,7 +11,7 @@ export interface TimelineItem {
   title: string;
   company: string;
   location: string;
-  type: TimelineItemType;
+  type: string;
   description: string;
   tags: string[];
 }

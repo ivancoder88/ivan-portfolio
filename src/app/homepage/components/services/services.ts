@@ -13,7 +13,6 @@ interface Service {
 
 @Component({
   selector: 'app-services',
-  standalone: true,
   imports: [AppIcon, SectionHeader, Section, RevealDirective],
   template: `
     <app-section id="services" variant="slate">

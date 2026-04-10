@@ -2,7 +2,6 @@ import { Directive, ElementRef, inject, afterNextRender } from '@angular/core';
 
 @Directive({
   selector: '[appReveal]',
-  standalone: true,
   host: {
     'class': 'reveal'
   }

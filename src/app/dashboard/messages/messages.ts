@@ -7,7 +7,6 @@ interface Message { name: string; email: string; message: string; receivedAt: st
 
 @Component({
   selector: 'app-messages',
-  standalone: true,
   imports: [DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
